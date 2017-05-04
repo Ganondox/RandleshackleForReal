@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RandleshackleController">
+  <bottom>
+    <Label id="gameStatus" fx:id="statusText" text="Label" BorderPane.alignment="TOP_CENTER">
+      <BorderPane.margin>
+        <Insets bottom="20.0" />
+      </BorderPane.margin>
+    </Label>
+  </bottom>
+  <center>
+    <AnchorPane fx:id="gameBoard" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="270.0" prefWidth="450.0" BorderPane.alignment="CENTER" />
+  </center>
+  <left>
+    <CheckBox fx:id="soloMode" mnemonicParsing="false" text="Single Player" />
+  </left>
+  <right>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <AnchorPane fx:id="powerGraphic" prefHeight="200.0" prefWidth="200.0" />
+        <HBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Separator prefWidth="14.0" />
+            <Button id="button" fx:id="powerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#usePower" text="*null*" textAlignment="CENTER" />
+            <Separator prefWidth="13.999900000002526" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </right>
+  <top>
+    <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="-1.0">
+      <items>
+        <Button mnemonicParsing="false" onMouseClicked="#newGame" text="New Game" />
+        <Button mnemonicParsing="false" onMouseClicked="#openHelp" text="Help" />
+        <Button mnemonicParsing="false" onMouseClicked="#exitGame" text="Exit" />
+        <Separator prefHeight="7.0" prefWidth="59.0" />
+        <Text fx:id="title" fill="#cc0000" strokeType="OUTSIDE" strokeWidth="0.0" text="RANDLESHACKLE">
+          <font>
+            <Font name="MinionPro-Medium" size="13.0" />
+          </font>
+        </Text>
+      </items>
+    </ToolBar>
+  </top>
+</BorderPane>

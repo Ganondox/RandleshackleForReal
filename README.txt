@@ -1,0 +1,1 @@
+Uses .5 rules, so pieces can capture before they move.Click on a piece to select it, and again to deselect it. Cells that can be moved to will be highlighted. Press the button on the side to usespecial powers.
