@@ -13,6 +13,8 @@ import java.util.LinkedList;
  */
 public class N1t3MaR3m00n extends LunarBot{
 
+    //quite buggy
+
     LinkedList<Piece> pieces;
     Board board;
     AnchorPane virtualPane = new AnchorPane();
@@ -144,6 +146,7 @@ public class N1t3MaR3m00n extends LunarBot{
         if(threatened){
             defensiveAttack(p);
             if(board.getBlueTurn() && !board.isGameOver()){
+                System.out.println("RETREAT!");
                 avoidAttack(p);
             }
         }
@@ -167,6 +170,7 @@ public class N1t3MaR3m00n extends LunarBot{
     }
 
     private void defensiveAttack(Piece p){
+        System.out.println(p.getClass().toString() + ": " + " HISS!");
         //attacks piece if doesn't make piece vulnerable
 
         p.getCell().onClicked();
@@ -210,7 +214,10 @@ public class N1t3MaR3m00n extends LunarBot{
                                 if(current2.getPiece() instanceof  Alicorn){
                                     current2.onClicked();
                                 } else {
-                                    if(isCellSafe(current2.getPiece(),p.isFlying)) current2.onClicked();
+                                    if(isCellSafe(current2.getPiece(),p.isFlying)){
+                                        System.out.println("BITE!");
+                                        current2.onClicked();
+                                    }
                                 }
                                 // }
                             }
@@ -246,7 +253,6 @@ public class N1t3MaR3m00n extends LunarBot{
     }
 
     private void avoidAttack(Piece p){
-
         //don't step into danger if she can help it
         p.getCell().onClicked();
 
@@ -272,7 +278,6 @@ public class N1t3MaR3m00n extends LunarBot{
     }
 
     private void aggressiveAttack(){
-
         //loops for all pieces to see if any attacks can be made, regardless of danger
         int i = 0;
         while(board.getBlueTurn() && !board.isGameOver()){
@@ -307,7 +312,7 @@ public class N1t3MaR3m00n extends LunarBot{
                 for(int k = 1; k <= 6; k++){
                     Cell current2 = current.getNeighbor(k);
                     if(current2 != null && current2.isVulnerable){
-
+                        System.out.println("BONZAI!!");
                             current2.onClicked();
 
                     }
