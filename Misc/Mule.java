@@ -1,4 +1,4 @@
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+package Misc;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,3 +1,5 @@
+package Misc;
+
 import javafx.scene.paint.Color;
 
 /**

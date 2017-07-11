@@ -1,3 +1,5 @@
+package Misc;
+
 import javafx.scene.layout.AnchorPane;
 
 import java.util.LinkedList;
@@ -120,7 +122,7 @@ public class N1t3MaR3m00n extends LunarBot{
             if(i >= pieces.size() ) break;
             if(pieces.get(i).isAlive){
                savePieces(pieces.get(i));
-                //System.out.println(i + " Piece is safe");
+                //System.out.println(i + "Piece is safe");
             }   else {
                 //remove pieces that have been captured
                 pieces.remove(i);
@@ -135,7 +137,7 @@ public class N1t3MaR3m00n extends LunarBot{
 
         Boolean threatened = true;
 
-        if(p.getClass().equals("EarthPony") && p.isPowered ){
+        if(p instanceof EarthPony && p.isPowered ){
             threatened = false;
         } else threatened = !isCellSafe(p.getCell(), p.isFlying);
 
@@ -181,7 +183,7 @@ public class N1t3MaR3m00n extends LunarBot{
                     if(current2 != null && current2.isVulnerable){
                         //if( current2.getPiece() != null && current2.getPiece().getBlue() != p.getBlue() && board.getBlueTurn() && !board.isGameOver()){
                             //no need to be defensive when you can KO an alicorn
-                            if(current2.getPiece().getClass().equals("Alicorn")){
+                            if(current2.getPiece() instanceof Alicorn){
                                 current2.onClicked();
                             } else {
                                if(isCellSafe(current2,p.isFlying)) current2.onClicked();
@@ -194,7 +196,7 @@ public class N1t3MaR3m00n extends LunarBot{
 
         //missile attack
         if(board.getBlueTurn() && !board.isGameOver()){
-            if(  (p.getClass().equals("Unicorn") || p.getClass().equals("Alicorn") ) && p.isPowered ) {
+            if(  (p instanceof Unicorn || p instanceof Alicorn ) && p.isPowered ) {
                  board.usePower();
                 System.out.println("CHARGING MAH LAZER!");
                 for(int i = 1; i <= 6; i++){
@@ -205,7 +207,7 @@ public class N1t3MaR3m00n extends LunarBot{
                             if(current2 != null && current2.isVulnerable){
                                 //if( current2.getPiece() != null && current2.getPiece().getBlue() != p.getBlue() && board.getBlueTurn() && !board.isGameOver()){
                                 //no need to be defensive when you can KO an alicorn
-                                if(current2.getPiece().getClass().equals("Alicorn")){
+                                if(current2.getPiece() instanceof  Alicorn){
                                     current2.onClicked();
                                 } else {
                                     if(isCellSafe(current2.getPiece(),p.isFlying)) current2.onClicked();
@@ -249,7 +251,7 @@ public class N1t3MaR3m00n extends LunarBot{
         p.getCell().onClicked();
 
         for(int i = 1; i <= 6; i++){
-            Cell current = p.getCell().getNeighbor(i);
+           Cell current = p.getCell().getNeighbor(i);
             if(current != null){
                 for(int k = 1; k <= 6; k++){
                     Cell current2 = current.getNeighbor(k);
@@ -300,7 +302,7 @@ public class N1t3MaR3m00n extends LunarBot{
         //capture
 
         for(int i = 1; i <= 6; i++){
-            Cell current = p.getCell().getNeighbor(i);
+           Cell current = p.getCell().getNeighbor(i);
             if(current != null){
                 for(int k = 1; k <= 6; k++){
                     Cell current2 = current.getNeighbor(k);
@@ -315,7 +317,7 @@ public class N1t3MaR3m00n extends LunarBot{
 
         //missile attack
         if(board.getBlueTurn() && !board.isGameOver()){
-            if( (p.getClass().equals("Unicorn") || p.getClass().equals("Alicorn")) && p.isPowered ) {
+            if( (p instanceof Unicorn || p instanceof Alicorn) && p.isPowered ) {
                 board.usePower();
                 for(int i = 1; i <= 6; i++){
                     Cell current = p.getCell().getNeighbor(i);
@@ -371,11 +373,11 @@ public class N1t3MaR3m00n extends LunarBot{
 
            //watch out for unicorns with lasers
             for(int i = 1; i <= 6; i++){
-                Cell current = c.getNeighbor(i);
+               Cell current = c.getNeighbor(i);
                 if(current != null){
                     for(int k = 1; k <= 6; k++){
                         Cell current2 = current.getNeighbor(k);
-                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece().getBlue() == false && current2.getPiece().getClass().equals("Unicorn") && current2.getPiece().isPowered){
+                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece().getBlue() == false && current2.getPiece() instanceof Unicorn && current2.getPiece().isPowered){
 
                             return false;
 
@@ -419,7 +421,7 @@ public class N1t3MaR3m00n extends LunarBot{
                 if(current != null){
                     for(int k = 1; k <= 6; k++){
                         Cell current2 = current.getNeighbor(k);
-                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece().getBlue() == false && current2.getPiece().getClass().equals("Alicorn") && current2.getPiece().isPowered){
+                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece().getBlue() == false && current2.getPiece() instanceof Alicorn && current2.getPiece().isPowered){
 
                             return false;
 
@@ -471,7 +473,7 @@ public class N1t3MaR3m00n extends LunarBot{
                 if(current != null){
                     for(int k = 1; k <= 6; k++){
                         Cell current2 = current.getNeighbor(k);
-                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece() != p && current2.getPiece().getBlue() == false && current2.getPiece().getClass().equals("Unicorn") && current2.getPiece().isPowered){
+                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece() != p && current2.getPiece().getBlue() == false && current2.getPiece() instanceof Unicorn && current2.getPiece().isPowered){
 
                             return false;
 
@@ -515,7 +517,7 @@ public class N1t3MaR3m00n extends LunarBot{
                 if(current != null){
                     for(int k = 1; k <= 6; k++){
                         Cell current2 = current.getNeighbor(k);
-                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece() != p && current2.getPiece().getBlue() == false && current2.getPiece().getClass().equals("Alicorn") && current2.getPiece().isPowered){
+                        if(current2 != null && current2 != c && current2.getPiece() != null && current2.getPiece() != p && current2.getPiece().getBlue() == false && current2.getPiece() instanceof Alicorn && current2.getPiece().isPowered){
 
                             return false;
 

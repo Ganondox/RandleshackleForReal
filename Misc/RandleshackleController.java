@@ -1,11 +1,10 @@
+package Misc;
+
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -70,8 +69,8 @@ public class RandleshackleController {
     @FXML
     void openHelp(MouseEvent event) throws Exception {
 
-            /*Desktop d = Desktop.getDesktop();
-            d.browse(new URI("http://ganondox.deviantart.com/art/RANDLESHACKLE-board-game-420725226"));   */
+            Desktop d = Desktop.getDesktop();
+            d.browse(new URI("http://ganondox.deviantart.com/art/RANDLESHACKLE-board-game-420725226"));
     }
 
     @FXML

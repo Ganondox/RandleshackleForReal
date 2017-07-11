@@ -1,3 +1,5 @@
+package Misc;
+
 /**
  * Created with IntelliJ IDEA.
  * User: 36483

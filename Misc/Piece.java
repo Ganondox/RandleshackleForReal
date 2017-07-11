@@ -1,3 +1,5 @@
+package Misc;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -28,7 +30,7 @@ public class Piece{
    /* private EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            Piece me = (Piece)mouseEvent.getSource();
+            Misc.Piece me = (Misc.Piece)mouseEvent.getSource();
             me.getMyBoard().getCell(me.xCordinate, me.yCordinate).onClicked();
             System.out.println("OUCH");
 
@@ -45,12 +47,12 @@ public class Piece{
         isBlue = YCordinate < 5;
 
         //setting up graphic
-        String imagurl;
+        String imagurl = "res/";
         if(isBlue){
-            imagurl = "blue" + classImage;
-        } else imagurl = "white" + classImage;
+            imagurl += "blue" + classImage;
+        } else imagurl += "white" + classImage;
 
-        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);
@@ -196,7 +198,7 @@ public class Piece{
             imagurl = "blue" + classImage;
         } else imagurl = "white" + classImage;
 
-        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);
@@ -219,12 +221,12 @@ public class Piece{
 
     public void powerDown(String classname){
         myBoard.getPane().getChildren().remove(imageView);
-        String imagurl;
+        String imagurl = "res/";
         if(isBlue){
-            imagurl = "blue" + classname + "X.png";
-        } else imagurl = "white" + classname + "X.png";
+            imagurl += "blue" + classname + "X.png";
+        } else imagurl += "white" + classname + "X.png";
 
-        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);

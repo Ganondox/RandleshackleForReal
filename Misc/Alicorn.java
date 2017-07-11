@@ -1,3 +1,5 @@
+package Misc;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -7,7 +9,7 @@ import javafx.scene.paint.Color;
  * Time: 8:10 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Alicorn extends Piece{
+public class Alicorn extends Piece {
 
     Alicorn(int XCordinate, int YCordinate, Board myBoard){
         super( XCordinate,  YCordinate,  myBoard, "Alicorn.png");
