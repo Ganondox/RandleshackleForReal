@@ -30,7 +30,7 @@ public class Piece{
    /* private EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            Misc.Piece me = (Misc.Piece)mouseEvent.getSource();
+            Piece me = (Piece)mouseEvent.getSource();
             me.getMyBoard().getCell(me.xCordinate, me.yCordinate).onClicked();
             System.out.println("OUCH");
 
@@ -52,7 +52,7 @@ public class Piece{
             imagurl += "blue" + classImage;
         } else imagurl += "white" + classImage;
 
-        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);
@@ -145,6 +145,7 @@ public class Piece{
     public void selectPiece(){
       //selects piece, calculates it's move, and colors board accordingly
       myBoard.setSelectedCell(this.getCell());
+      myBoard.missile = false;
       calculateOpenCells();
       //getCell().setFill(Color.AQUA);
     }
@@ -170,6 +171,7 @@ public class Piece{
     }
 
     public Boolean die(){
+        System.out.print("BLEGH");
         //returns true if piece is successfully killed
         myBoard.getPane().getChildren().remove(imageView);
         getCell().setPiece(null);
@@ -198,7 +200,7 @@ public class Piece{
             imagurl = "blue" + classImage;
         } else imagurl = "white" + classImage;
 
-        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);
@@ -226,7 +228,7 @@ public class Piece{
             imagurl += "blue" + classname + "X.png";
         } else imagurl += "white" + classname + "X.png";
 
-        //Misc.Cell myCell = myBoard.getCell(XCordinate,YCordinate);
+        //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());
 
         System.out.println(imagurl);

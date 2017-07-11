@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class N1t3MaR3m00n extends LunarBot{
 
-    //quite buggy
+    //quite buggy, know it doesn't calculate safety for flying pieces when landing correctly
 
     LinkedList<Piece> pieces;
     Board board;
@@ -170,7 +170,7 @@ public class N1t3MaR3m00n extends LunarBot{
     }
 
     private void defensiveAttack(Piece p){
-        System.out.println(p.getClass().toString() + ": " + " HISS!");
+        System.out.println(p.getClass().toString() + p.xCordinate + "|" + p.yCordinate + ": " + " HISS!");
         //attacks piece if doesn't make piece vulnerable
 
         p.getCell().onClicked();
