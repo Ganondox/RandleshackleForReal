@@ -20,7 +20,7 @@ public class N1t3MaR3m00n extends LunarBot{
     AnchorPane virtualPane = new AnchorPane();
     Alicorn NightmareMoon;
 
-    N1t3MaR3m00n(Board board){
+   public N1t3MaR3m00n(Board board){
         this.board = board;
         pieces = new LinkedList<Piece>();
         for(int i = 0; i < 11; i++){

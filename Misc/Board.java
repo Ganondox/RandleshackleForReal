@@ -66,7 +66,7 @@ public class Board {
     }
 
     public static int lowerBound(int n){
-    //caluates the minimum y for a given x to keep it hexagonal
+    //calculates the minimum y for a given x to keep it hexagonal
         switch (n){
             case 0:
                 return 2;

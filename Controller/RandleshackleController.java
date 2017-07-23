@@ -1,10 +1,12 @@
-package Misc;
+package Controller;
 
 import java.awt.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Misc.Board;
+import Misc.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
