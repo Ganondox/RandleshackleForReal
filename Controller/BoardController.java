@@ -2,12 +2,15 @@ package Controller;
 
 
 import Misc.Cell;
+import Misc.CellPolygon;
 import Misc.LunarBot;
 import Misc.N1t3MaR3m00n;
 import Model.BoardModel;
 import Model.CellModel;
 import Model.PieceModel;
 import View.BoardView;
+import View.CellView;
+import View.IView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +35,29 @@ public class BoardController {
 
 
     public BoardController(AnchorPane myPane, Label stattext, Button powerButton, Boolean soloMode){
+
+
         view = new BoardView(myPane, stattext, powerButton, this);
+        model = view.getModel();
+
+        //initialize cell views
+        for(int i = 0; i < model.getWidth(); i++){
+            for(int k = 0; k < model.getHeight(); k++){
+                if(k >= model.lowerBound(i) && k <= model.upperBound(i)) {
+                    CellController cellc = new CellController(this);
+                    CellModel cellm = model.getCell(i, k);
+                    CellPolygon cellp = new CellPolygon(cellc, view);
+                    CellView cellv = new CellView(cellp, cellm);
+                    cellm.setView(cellv);
+                    cellc.setView(cellv);
+                    cellc.setModel(cellm);
+                }
+
+
+
+            }
+        }
+
 
         isSinglePlayer = soloMode;
         if(isSinglePlayer){

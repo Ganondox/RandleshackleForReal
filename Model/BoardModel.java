@@ -1,16 +1,14 @@
 package Model;
 
 
-import Controller.IBoardView;
-import Misc.Cell;
-import Misc.Piece;
+import View.IView;
 
 /**
  * Created by jotbills on 7/10/17.
  */
 public class BoardModel {
 
-    IBoardView view;
+    IView view;
 
     double ruleset = 0.5;
     private CellModel[][] myCells;
@@ -19,6 +17,7 @@ public class BoardModel {
     private boolean isBlueTurn;
     private PieceModel restPiece;
     private boolean gameOver = false;
+    private Initializer init;
 
     public BoardModel(int w, int h){
         height = h;
@@ -36,7 +35,7 @@ public class BoardModel {
     }
 
 
-    public void setView(IBoardView view) {
+    public void setView(IView view) {
         this.view = view;
     }
 
@@ -50,7 +49,7 @@ public class BoardModel {
 
 
 
-    public static int lowerBound(int n){
+    public int lowerBound(int n){
         //calculates the minimum y for a given x to keep it hexagonal
         // TODO: 7/22/17 refactor in terms of width and height
         switch (n){
@@ -145,4 +144,16 @@ public class BoardModel {
         return gameOver;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+
+    }
+
+    public Initializer getInit() {
+        return init;
+    }
 }

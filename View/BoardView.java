@@ -1,7 +1,6 @@
 package View;
 
 import Controller.BoardController;
-import Controller.IBoardView;
 import Model.BoardModel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Created by jotbills on 7/10/17.
  */
-public class BoardView  implements IBoardView{
+public class BoardView  implements IView {
 
     BoardController controller;
     BoardModel model;
@@ -48,4 +47,7 @@ public class BoardView  implements IBoardView{
     }
 
 
+    public BoardModel getModel() {
+        return model;
+    }
 }
