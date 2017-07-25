@@ -43,6 +43,7 @@ public class BoardModel {
     //returns true if successful
     public boolean makeMove(Move move){
 
+        changeTurns();
         view.draw();
         return true;
     }
@@ -84,6 +85,64 @@ public class BoardModel {
         // TODO: 7/22/17 refactor in terms of width and height
         //calculates the maximum y for a given x to keep it hexagonal
         return 10 - lowerBound(10 - n);
+    }
+
+    public CellModel getCell(int x, int y){
+        //returns cell with a given coordinate
+        return myCells[x][y];
+    }
+
+    public Boolean getBlueTurn() {
+        //used to determine whose turn it is
+        return isBlueTurn;
+    }
+
+    public PieceModel getRestPiece() {
+        //piece recovering from attack
+        return restPiece;
+    }
+
+    public void setRestPiece(PieceModel restPiece) {
+        this.restPiece = restPiece;
+    }
+
+    public void changeTurns(){
+        // TODO: 7/24/17 refactor to work with new design
+
+        /*
+        if(!gameOver){
+            //piece no longer on rest after their turn is over
+            if(restPiece != null && restPiece.getBlue() == isBlueTurn){
+                restPiece = null;
+            }
+            //change turns
+            isBlueTurn = !isBlueTurn;
+            //update GUI
+            if(isBlueTurn){
+                myText.setText("Blue");
+            }else{
+                myText.setText("White");
+            }
+        }
+        deselect();
+        if(isSinglePlayer && isBlueTurn){
+            bot.makeMove();
+        }
+        */
+    }
+
+    public void endGame(){
+        gameOver = true;
+        //deselect();
+        /*if(isBlueTurn){
+            myText.setText("Blue Wins");
+        }else{
+            myText.setText("White Wins");
+        } */
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
 }

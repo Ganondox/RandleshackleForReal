@@ -38,4 +38,14 @@ public class BoardView  implements IBoardView{
         //draw additional components
 
     }
+
+    public AnchorPane getPane() {
+        return myPane;
+    }
+
+    public Button getButton() {
+        return myButton;
+    }
+
+
 }
