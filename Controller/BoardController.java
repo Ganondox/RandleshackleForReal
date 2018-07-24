@@ -1,6 +1,8 @@
 package Controller;
 
 
+import Controller.InitFact.IFact;
+import Controller.InitFact.InitializerFactory;
 import Misc.Cell;
 import Misc.CellPolygon;
 import Misc.LunarBot;
@@ -20,13 +22,18 @@ import javafx.scene.layout.AnchorPane;
  */
 public class BoardController {
 
+
+    enum Power{ NONE, PRIME_MISSILE, CANCEL_MISSILE, DEPOWER
+
+    }
+
     //counterparts
     BoardModel model;
     BoardView view;
 
 
     private CellModel selectedCell;
-    public int currentPower = 0;
+    public Power currentPower = Power.NONE;
     public boolean missile = false;
 
     //AI control
@@ -36,9 +43,10 @@ public class BoardController {
 
     public BoardController(AnchorPane myPane, Label stattext, Button powerButton, Boolean soloMode){
 
-
+        InitializerFactory factory = new InitializerFactory();
+        model = new BoardModel(factory.create("res/standard.txt"));
         view = new BoardView(myPane, stattext, powerButton, this);
-        model = view.getModel();
+        //model = view.getModel();
 
         //initialize cell views
         for(int i = 0; i < model.getWidth(); i++){
@@ -103,7 +111,7 @@ public class BoardController {
         closeCells();
         setSelectedCell(null);
        // myButton.setText("*null*");
-        currentPower = 0;
+        currentPower = Power.NONE;
     }
 
     public PieceModel getSelectedPiece(){

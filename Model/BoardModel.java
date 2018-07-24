@@ -19,6 +19,13 @@ public class BoardModel {
     private boolean gameOver = false;
     private Initializer init;
 
+
+    public BoardModel(Initializer init){
+        this(init.data.length, init.data[0].length);
+        this.init = init;
+
+    }
+
     public BoardModel(int w, int h){
         height = h;
         width = w;
@@ -156,4 +163,6 @@ public class BoardModel {
     public Initializer getInit() {
         return init;
     }
+
+
 }

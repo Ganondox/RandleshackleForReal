@@ -25,8 +25,10 @@ public class BoardView  implements IView {
         this.myText = stattext;
         this.myButton = powerButton;
         //initalizing model
-        model = new BoardModel(11, 11);
-        model.setView(this);
+
+        //model = new BoardModel(11, 11);
+
+        //model.setView(this);
     }
 
     @Override

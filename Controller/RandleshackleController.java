@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import Misc.Board;
 import Misc.Controller;
+import Model.BoardModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -44,7 +45,8 @@ public class RandleshackleController {
     @FXML
     private Text title;
 
-    Board board;
+    //Board board;
+    BoardController board;
 
 
     @FXML
@@ -59,7 +61,7 @@ public class RandleshackleController {
 
         gameBoard.getChildren().clear();
         //draw and initiate game board
-        board = new Board(gameBoard, statusText, powerButton, soloMode.selectedProperty().getValue());
+        board = new BoardController(gameBoard, statusText, powerButton, soloMode.selectedProperty().getValue());
         gameBoard.getChildren();
         statusText.setText("Blue");
        // gameBoard.getChildren().add(title2);
@@ -77,6 +79,8 @@ public class RandleshackleController {
 
     @FXML
     void usePower(MouseEvent event) {
+
+        /*
 
         switch (board.currentPower){
             case 1:
@@ -108,6 +112,7 @@ public class RandleshackleController {
                 board.changeTurns();
                 break;
         }
+        */
     }
 
     @FXML

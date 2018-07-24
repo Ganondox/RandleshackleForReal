@@ -197,8 +197,8 @@ public class Piece{
         myBoard.getPane().getChildren().remove(imageView);
         String imagurl;
         if(isBlue){
-            imagurl = "blue" + classImage;
-        } else imagurl = "white" + classImage;
+            imagurl = "res/blue" + classImage;
+        } else imagurl = "res/white" + classImage;
 
         //Cell myCell = myBoard.getCell(XCordinate,YCordinate);
         //System.out.println(myCell.getXFactor());

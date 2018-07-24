@@ -2,6 +2,9 @@ package Model;
 
 import Misc.LunarBot;
 
+import java.io.FileReader;
+import java.io.InputStream;
+
 /**
  * Created by jotbills on 7/25/17.
  */
@@ -14,10 +17,9 @@ public class Initializer {
     Config config;
 
 
-
-
-    public Initializer(String fileName){
-        // TODO: 7/25/17
+    public Initializer(PieceMock[][] data, LunarBot[] AIs, Config config) {
+        this.data = data;
+        this.AIs = AIs;
+        this.config = config;
     }
-
 }
