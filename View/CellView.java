@@ -15,13 +15,18 @@ public class CellView implements IView {
     CellController controller;
 
 
+    Color color;
+
     double yFactor;
     double xFactor;
 
-    public CellView(CellPolygon polygon, CellModel model) {
+    public CellView(CellPolygon polygon, CellModel model, BoardView view) {
         this.polygon = polygon;
         this.model = model;
         controller = polygon.getController();
+
+        view.addCell(this);
+
 
         //drawing and positioning cell
         double x = model.getxCordinate();
@@ -31,13 +36,15 @@ public class CellView implements IView {
         Double[] points = {xFactor, yFactor, xFactor + 10, yFactor , xFactor + 15, yFactor + (5 * Math.sqrt(3)), xFactor + 10, yFactor + (10 * Math.sqrt(3)), xFactor, yFactor + (10 * Math.sqrt(3)),  xFactor - 5, yFactor + (5 * Math.sqrt(3))};
 
         polygon.init(points, Color.GREY, Color.BLACK, 1);
+        color = Color.GREY;
+
 
 
     }
 
     @Override
     public void draw() {
-
+        polygon.setFill(color);
     }
 
     public double getXFactor(){
@@ -48,4 +55,8 @@ public class CellView implements IView {
         return yFactor;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+        draw();
+    }
 }

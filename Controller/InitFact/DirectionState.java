@@ -1,6 +1,6 @@
 package Controller.InitFact;
 
-import Controller.IBoardController;
+
 import Model.CellModel;
 
 /**

@@ -1,21 +1,21 @@
 package Controller;
 
 
-import Controller.InitFact.IFact;
 import Controller.InitFact.InitializerFactory;
-import Misc.Cell;
 import Misc.CellPolygon;
 import Misc.LunarBot;
-import Misc.N1t3MaR3m00n;
 import Model.BoardModel;
 import Model.CellModel;
+import Model.Move;
 import Model.PieceModel;
 import View.BoardView;
 import View.CellView;
-import View.IView;
+import View.PieceView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.HashSet;
 
 /**
  * Created by jotbills on 7/10/17.
@@ -32,9 +32,11 @@ public class BoardController {
     BoardView view;
 
 
+    private  CellController[][] myCells;
     private CellModel selectedCell;
     public Power currentPower = Power.NONE;
     public boolean missile = false;
+
 
     //AI control
     private Boolean isSinglePlayer = true;
@@ -45,20 +47,29 @@ public class BoardController {
 
         InitializerFactory factory = new InitializerFactory();
         model = new BoardModel(factory.create("res/standard.txt"));
-        view = new BoardView(myPane, stattext, powerButton, this);
+        view = new BoardView(myPane, stattext, powerButton, this, model);
         //model = view.getModel();
 
-        //initialize cell views
+
+        //initialize cell and piece views
+        myCells = new CellController[model.getWidth()][model.getHeight()];
         for(int i = 0; i < model.getWidth(); i++){
             for(int k = 0; k < model.getHeight(); k++){
                 if(k >= model.lowerBound(i) && k <= model.upperBound(i)) {
                     CellController cellc = new CellController(this);
+                    myCells[i][k] = cellc;
                     CellModel cellm = model.getCell(i, k);
                     CellPolygon cellp = new CellPolygon(cellc, view);
-                    CellView cellv = new CellView(cellp, cellm);
+                    CellView cellv = new CellView(cellp, cellm, view);
                     cellm.setView(cellv);
                     cellc.setView(cellv);
                     cellc.setModel(cellm);
+
+                    //check if cell has a piece
+
+                    if(cellm.getPiece() != null){
+                        PieceView pv = new PieceView(cellm.getPiece(), view);
+                    }
                 }
 
 
@@ -89,21 +100,17 @@ public class BoardController {
 
     public void closeCells(){
 
-        // TODO: 7/24/17  refactor so works with new design
-
         //clears board from move calculations
-        /*
-        for(int i = 0; i < width; i++){
-            for(int k = 0; k < height; k++){
-                if(k >= lowerBound(i) && k <= upperBound(i)){
-                    myCells[i][k].isOpen = false;
-                    myCells[i][k].isVulnerable = false;
-                    myCells[i][k].isDrainSpot = false;
-                    myCells[i][k].setFill(Color.GRAY);
+
+        for(int i = 0; i < model.getWidth(); i++){
+            for(int k = 0; k < model.getHeight(); k++){
+                if(k >= model.lowerBound(i) && k <= model.upperBound(i)){
+
+                    myCells[i][k].close();
                 }
             }
         }
-        */
+
     }
 
     public void deselect(){
@@ -158,6 +165,39 @@ public class BoardController {
         */
     }
 
-    // TODO: have make randleshackle controller call this class were appropriate
+    void selectPiece(PieceModel piece){
+        //selects piece, calculates it's move, and colors board accordingly
+        setSelectedCell(piece.getCell());
+        missile = false;
+        openCells(piece);
 
+    }
+
+    void openCells(PieceModel pieceModel){
+        // TODO
+        //get cells that can be moved into or captured
+        HashSet<CellModel> opencells = pieceModel.getOpenCells();
+
+        //open cells
+        for(int i = 0; i < model.getWidth(); i++){
+            for(int k = 0; k < model.getHeight(); k++){
+                if(k >= model.lowerBound(i) && k <= model.upperBound(i)){
+
+                    if(opencells.contains(model.getCell(i,k)))
+                    myCells[i][k].open();
+                }
+            }
+        }
+
+
+    }
+
+    public void makeMove(Move move){
+
+        if(move.execute(model)) {
+            deselect();
+            view.draw();
+        }
+
+    }
 }

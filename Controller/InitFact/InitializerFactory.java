@@ -6,6 +6,7 @@ import Model.CellModel.Direction;
 import Model.Config;
 import Model.Initializer;
 import Model.PieceMock;
+import View.Color;
 
 import java.io.FileReader;
 
@@ -20,6 +21,7 @@ public class InitializerFactory implements IFact{
 
     IBoardController[] specialControl = null;
     Direction[] playerDirection = null;
+    Color[] colors = null;
 
     IFactState state = new CommentState(this);
     int width = -1;

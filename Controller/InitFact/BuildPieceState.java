@@ -204,6 +204,16 @@ public class BuildPieceState extends IFactSubState {
                 case 'A':
                     type = PieceMock.Type.ALICORN;
                     break;
+                case 'U':
+                    type = PieceMock.Type.UNICORN;
+                    break;
+                case 'P':
+                    type = PieceMock.Type.PEGASUS;
+                    break;
+                case 'E':
+                    type = PieceMock.Type.EARTHPONY;
+                    break;
+
                     default:
                         IF.message = "Undefined Type";
                         IF.failed = true;

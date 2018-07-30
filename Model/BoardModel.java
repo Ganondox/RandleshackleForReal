@@ -8,25 +8,32 @@ import View.IView;
  */
 public class BoardModel {
 
-    IView view;
-
     double ruleset = 0.5;
     private CellModel[][] myCells;
     private int height;
     private int width;
-    private boolean isBlueTurn;
+    private int currentTurn;
     private PieceModel restPiece;
     private boolean gameOver = false;
     private Initializer init;
+    private Player[] players;
 
 
     public BoardModel(Initializer init){
-        this(init.data.length, init.data[0].length);
-        this.init = init;
+        this(init.data.length, init.data[0].length, init);
+        //set players
+        players = new Player[init.config.playerDirection.length];
+        for(int i = 0; i < players.length; i++){
+            players[i] = new Player();
+            players[i].direction = init.config.playerDirection[i];
+            players[i].color = init.config.playerColors[i];
+        }
+
 
     }
 
-    public BoardModel(int w, int h){
+    public BoardModel(int w, int h, Initializer I){
+        init = I;
         height = h;
         width = w;
         myCells = new CellModel[width][height];
@@ -38,21 +45,14 @@ public class BoardModel {
             }
         }
         //blue starts
-        isBlueTurn = true;
+        currentTurn = 0;
     }
 
 
-    public void setView(IView view) {
-        this.view = view;
-    }
+ //   public void setView(IView view) { this.view = view; }
 
-    //returns true if successful
-    public boolean makeMove(Move move){
 
-        changeTurns();
-        view.draw();
-        return true;
-    }
+
 
 
 
@@ -98,9 +98,9 @@ public class BoardModel {
         return myCells[x][y];
     }
 
-    public Boolean getBlueTurn() {
+    public int getTurn() {
         //used to determine whose turn it is
-        return isBlueTurn;
+        return currentTurn;
     }
 
     public PieceModel getRestPiece() {
@@ -115,26 +115,30 @@ public class BoardModel {
     public void changeTurns(){
         // TODO: 7/24/17 refactor to work with new design
 
-        /*
-        if(!gameOver){
+
+        if(!gameOver) {
             //piece no longer on rest after their turn is over
-            if(restPiece != null && restPiece.getBlue() == isBlueTurn){
+            if (restPiece != null && restPiece.getPlayer() == currentTurn) {
                 restPiece = null;
             }
             //change turns
-            isBlueTurn = !isBlueTurn;
-            //update GUI
+            currentTurn++;
+            currentTurn %= players.length;
+        }
+           /* //update GUI
             if(isBlueTurn){
                 myText.setText("Blue");
             }else{
                 myText.setText("White");
             }
+
         }
         deselect();
         if(isSinglePlayer && isBlueTurn){
             bot.makeMove();
         }
         */
+
     }
 
     public void endGame(){
@@ -165,4 +169,7 @@ public class BoardModel {
     }
 
 
+    public Player getPlayer(int i){
+        return players[i];
+    }
 }

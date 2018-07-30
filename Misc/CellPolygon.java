@@ -46,7 +46,7 @@ public class CellPolygon extends Polygon {
     private EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            Cell me = (Cell)mouseEvent.getSource();
+//            Cell me = (Cell)mouseEvent.getSource();
             controller.onClicked();
 
 

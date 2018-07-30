@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.CellModel;
+import Model.Move;
 import View.CellView;
 import javafx.scene.paint.Color;
 
@@ -35,6 +36,31 @@ public class CellController {
     public void onClicked(){
     // TODO: 7/26/17  refactor for new design
         System.out.println("CLICKED");
+        if(!controller.model.isGameOver()){
+            if(model.getPiece() != null) {
+                if (model.getPiece().getPlayer() == controller.model.getTurn()) {
+                    if (controller.isPieceSelected()) {
+                        //selected pieces deselect when another piece is clicked
+                        controller.deselect();
+                    } else {
+                        //clicking one of your pieces when none are selected selects it
+                        controller.selectPiece(model.getPiece());
+                        view.setColor(Color.AQUA);
+                    }
+                }
+            } else {
+                if(controller.isPieceSelected()){
+
+                    if(isOpen){
+                        //clicking on an empty space that's open moves the piece there
+                        Move move = new Move(controller.getSelectedPiece(),model, Move.Action.MOVE);
+                        controller.makeMove(move);
+
+                    }
+
+                }
+            }
+        }
         /*
         if(myPiece != null && !myBoard.isGameOver()){
             if(myPiece.getBlue() == myBoard.getBlueTurn()){
@@ -89,5 +115,20 @@ public class CellController {
 
         */
     }
+
+    public void close(){
+        isOpen = false;
+        isVulnerable = false;
+        isDrainSpot = false;
+        view.setColor(Color.GRAY);
+    }
+
+    public void open(){
+        boolean hasPiece = model.getPiece() != null;
+        isOpen = !hasPiece;
+        isVulnerable = hasPiece;
+        view.setColor(Color.YELLOW);
+    }
+
 
 }

@@ -2,6 +2,7 @@ package Controller.InitFact;
 
 import Controller.IBoardController;
 import Model.CellModel;
+import View.Color;
 
 /**
  * Created by jotbills on 8/2/17.
@@ -29,6 +30,7 @@ public class PlayersState extends IFactState {
                     //initialize data
                     IF.playerDirection = new CellModel.Direction[IF.players];
                     IF.specialControl = new IBoardController[IF.players];
+                    IF.colors = new Color[IF.players];
 
                     //end command
                     IF.state = new CommentState(IF);

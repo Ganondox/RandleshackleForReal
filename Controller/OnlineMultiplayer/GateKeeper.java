@@ -15,7 +15,7 @@ public class GateKeeper {
     public boolean makeMove(IBoardController player, Move move){
         boolean myTurn = true;
         //myTurn = player.getOrder() == board.getTurn();
-         if(myTurn) return board.makeMove(move); else return  false;
+         if(myTurn) return move.execute(board); else return  false;
     }
 
 }

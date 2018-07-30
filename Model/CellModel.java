@@ -1,13 +1,36 @@
 package Model;
 
 import View.IView;
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
+
+import java.util.Observable;
 
 /**
  * Created by jotbills on 7/22/17.
  */
 public class CellModel {
 
-   public enum Direction{ TOP, BOTTOM, UPLEFT, UPRIGHT, DOWNRIGHT, DOWNLEFT
+   public enum Direction{ TOP, BOTTOM, UPLEFT, UPRIGHT, DOWNRIGHT, DOWNLEFT;
+
+       public Direction clockwise(){
+           switch (this){
+               case TOP:
+                   return UPRIGHT;
+               case UPRIGHT:
+                   return DOWNRIGHT;
+               case DOWNRIGHT:
+                   return BOTTOM;
+               case BOTTOM:
+                   return DOWNLEFT;
+               case DOWNLEFT:
+                   return UPLEFT;
+               case UPLEFT:
+                   return TOP;
+
+           }
+           return  null;
+       }
+
 
     }
 
@@ -24,7 +47,9 @@ public class CellModel {
         xCordinate = x;
         yCordinate = y;
 
+
         //creating initial piece, if it has one
+        myBoard = board;
         myPiece = generatePiece(board.getInit());
     }
 
@@ -45,8 +70,32 @@ public class CellModel {
     }
 
     private PieceModel generatePiece(Initializer initializer){
-        // TODO: 7/25/17
-        return null;
+
+        PieceMock mock = initializer.data[xCordinate][yCordinate];
+        PieceModel piece = null;
+
+        if(mock != null) {
+            switch (mock.type) {
+                case MULE:
+                    piece = new MuleModel(mock, myBoard, xCordinate, yCordinate);
+                    break;
+                case ALICORN:
+                    piece = new AlicornModel(mock, myBoard, xCordinate, yCordinate);
+                    break;
+                case UNICORN:
+                    piece = new UnicornModel(mock, myBoard, xCordinate, yCordinate);
+                    break;
+                case EARTHPONY:
+                    piece = new EarthPonyModel(mock, myBoard, xCordinate, yCordinate);
+                    break;
+                case PEGASUS:
+                    piece = new PegasusModel(mock, myBoard, xCordinate, yCordinate);
+
+            }
+        }
+
+
+        return piece;
     }
 
     public CellModel getNeighbor(Direction d){
@@ -107,5 +156,7 @@ public class CellModel {
         }
     }
 
-
+     void setPiece(PieceModel myPiece) {
+        this.myPiece = myPiece;
+    }
 }
