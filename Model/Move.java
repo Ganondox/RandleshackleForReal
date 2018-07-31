@@ -33,10 +33,17 @@ public class Move {
         if(board.getTurn() == piece.getPlayer()) {
             switch (type) {
                 case MOVE:
-                    if (piece.getOpenCells().contains(destination)) {
+                    if (piece.getOpenCells().contains(destination) && destination.getPiece() == null) {
                         successful = true;
                         piece.move(destination);
 
+                    }
+                case CAPTURE:
+                    if(piece.getOpenCells().contains(destination) && destination.getPiece() != null){
+                        successful = true;
+                        if(destination.getPiece().die()){
+                            piece.move(destination);
+                        }
                     }
 
             }

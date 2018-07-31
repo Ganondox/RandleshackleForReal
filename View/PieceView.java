@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 /**
  * Created by jotbills on 7/29/18.
  */
-public class PieceView {
+public class PieceView  {
 
     Image pieceImage;
     ImageView imageView;
@@ -16,12 +16,15 @@ public class PieceView {
 
     PieceModel daPiece;
 
+    boolean wasPowered;
+
    public PieceView(PieceModel piece, BoardView view){
 
 
        this.view = view;
 
         daPiece = piece;
+        wasPowered = piece.isPowered();
 
         String imagurl = "res/";
 
@@ -59,9 +62,42 @@ public class PieceView {
     public void draw(){
 
         view.getPane().getChildren().remove(imageView);
-        imageView.setX(this.getXFactor());
-        imageView.setY(this.getYFactor());
-        view.getPane().getChildren().add(imageView);
+        if(daPiece.isAlive()) {
+
+            if( wasPowered != daPiece.isPowered()){
+                wasPowered = daPiece.isPowered();
+                //update imageview
+
+                String foot;
+                if(wasPowered) foot = ".png";
+                else foot = "X.png";
+
+                String imagurl = "res/";
+
+                Color color = daPiece.getMyBoard().getPlayer(daPiece.getPlayer()).getColor();
+
+                switch (color){
+                    case BLUE:
+                        imagurl += "blue" + daPiece.getClassname() + foot;
+                        break;
+                    case WHITE:
+                        imagurl += "white" + daPiece.getClassname() + foot;
+                        break;
+                    default:
+                        imagurl = "";
+                }
+                System.out.println(imagurl);
+                pieceImage = new Image(imagurl);
+                imageView = new ImageView(pieceImage);
+
+
+            }
+
+
+            imageView.setX(this.getXFactor());
+            imageView.setY(this.getYFactor());
+            view.getPane().getChildren().add(imageView);
+        }
     }
 
     public double getXFactor(){

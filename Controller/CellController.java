@@ -47,6 +47,18 @@ public class CellController {
                         controller.selectPiece(model.getPiece());
                         view.setColor(Color.AQUA);
                     }
+                } else {
+                    if (controller.isPieceSelected()) {
+                        if (isVulnerable && controller.getSelectedPiece().isActive()) {
+                            if(controller.missile){
+
+                            } else {
+                                //clicking on an open enemy piece captures it, if they aren't resilient
+                                Move move = new Move(controller.getSelectedPiece(),model, Move.Action.CAPTURE);
+                                controller.makeMove(move);
+                            }
+                        }
+                    }
                 }
             } else {
                 if(controller.isPieceSelected()){

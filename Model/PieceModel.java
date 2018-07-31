@@ -149,4 +149,33 @@ public class PieceModel {
         //for .51 rules
         isActive = true;
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public Boolean die(){
+        System.out.print("BLEGH");
+        //returns true if piece is successfully killed
+        health--;
+        if(health == 0) {
+            //myBoard.getPane().getChildren().remove(imageView);
+            getCell().setPiece(null);
+            //myBoard.closeCells();
+            isAlive = false;
+            return true;
+        } else return false;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public boolean isPowered() {
+        return isPowered;
+    }
+
+    void powerDown(){
+        isPowered = false;
+    }
 }

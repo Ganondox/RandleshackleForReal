@@ -12,4 +12,10 @@ public class PegasusModel extends PieceModel {
         classname = "Pegasus";
     }
 
+    @Override
+    void powerDown() {
+        isFlying = false;
+        super.powerDown();
+    }
+
 }

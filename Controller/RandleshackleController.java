@@ -80,6 +80,8 @@ public class RandleshackleController {
     @FXML
     void usePower(MouseEvent event) {
 
+
+
         /*
 
         switch (board.currentPower){

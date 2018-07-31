@@ -9,5 +9,14 @@ public class EarthPonyModel extends PieceModel {
         super(mock, board, x, y);
         isPowered = true;
         classname = "EarthPony";
+        if(mock.getHits() == 0){
+            health = 2;
+        }
+    }
+
+    @Override
+    public Boolean die() {
+        powerDown();
+        return super.die();
     }
 }
