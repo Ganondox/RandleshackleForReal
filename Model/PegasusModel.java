@@ -18,4 +18,9 @@ public class PegasusModel extends PieceModel {
         super.powerDown();
     }
 
+    @Override
+    void powerUp() {
+        isFlying = true;
+        super.powerUp();
+    }
 }

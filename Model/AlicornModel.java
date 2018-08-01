@@ -9,6 +9,7 @@ public class AlicornModel extends PieceModel {
         super(mock, board, x, y);
         isPowered = true;
         isFlying = true;
+        isMagic = true;
         classname = "Alicorn";
         if(mock.getHits() == 0){
             health = 2;
@@ -17,6 +18,7 @@ public class AlicornModel extends PieceModel {
 
     @Override
     public Boolean die() {
+        myBoard.setRestPiece(this);
         powerDown();
         return super.die();
     }
@@ -24,6 +26,16 @@ public class AlicornModel extends PieceModel {
     @Override
     void powerDown() {
         isFlying = false;
+        isMagic = false;
+        if(myBoard.getRestPiece() == null || !myBoard.getRestPiece().equals(this)) health--;
         super.powerDown();
+    }
+
+    @Override
+    void powerUp() {
+        isFlying = true;
+        isMagic = true;
+        health++;
+        super.powerUp();
     }
 }

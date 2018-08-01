@@ -17,6 +17,13 @@ public class EarthPonyModel extends PieceModel {
     @Override
     public Boolean die() {
         powerDown();
+        myBoard.setRestPiece(this);
         return super.die();
+    }
+
+    @Override
+    void powerUp() {
+        health++;
+        super.powerUp();
     }
 }

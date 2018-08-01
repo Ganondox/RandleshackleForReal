@@ -11,6 +11,9 @@ public class Player {
     CellModel.Direction direction;
     Color color;
 
+    BoardModel game;
+    int lives;
+
 
     public Color getColor() {
         return color;

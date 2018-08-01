@@ -1,7 +1,7 @@
 package View;
 
 import Controller.BoardController;
-import Model.BoardModel;
+import Model.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -54,15 +54,56 @@ public class BoardView  implements IView {
 
         //draw additional components
 
-       switch (model.getPlayer(model.getTurn()).getColor()){
-           case BLUE:
-            myText.setText("Blue");
-            break;
-           case WHITE:
-            myText.setText("White");
-            break;
+        //title
+        if(!model.isGameOver()) {
+            switch (model.getPlayer(model.getTurn()).getColor()) {
+                case BLUE:
+                    myText.setText("Blue");
+                    break;
+                case WHITE:
+                    myText.setText("White");
+                    break;
+            }
+        } else {
+            switch (model.getPlayer(model.getTurn()).getColor()) {
+                case BLUE:
+                    myText.setText("Blue Wins");
+                    break;
+                case WHITE:
+                    myText.setText("White Wins");
+                    break;
+            }
         }
 
+        //button
+        switch (controller.currentPower){
+            case POWER_UP:
+                if(controller.getSelectedPiece() instanceof EarthPonyModel)
+                myButton.setText("Recover");
+                 else if(controller.getSelectedPiece() instanceof UnicornModel)
+                    myButton.setText("Charge");
+                 else if(controller.getSelectedPiece() instanceof AlicornModel)
+                    myButton.setText("Ascend");
+                else if(controller.getSelectedPiece() instanceof PegasusModel)
+                    myButton.setText("Fly");
+                else myButton.setText("Power Up");
+            break;
+            case DEPOWER:
+                myButton.setText("Land");
+                break;
+            case PRIME_MISSILE:
+                if(controller.getSelectedPiece().isFlying()){
+                    myButton.setText("Missile*");
+                } else
+                myButton.setText("Missile");
+                break;
+            case CANCEL_MISSILE:
+                myButton.setText("Cancel");
+                break;
+            default:
+                myButton.setText("*null*");
+
+        }
 
     }
 

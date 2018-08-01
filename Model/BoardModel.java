@@ -17,17 +17,12 @@ public class BoardModel {
     private boolean gameOver = false;
     private Initializer init;
     private Player[] players;
+    boolean killEmAll = false;
 
 
     public BoardModel(Initializer init){
         this(init.data.length, init.data[0].length, init);
-        //set players
-        players = new Player[init.config.playerDirection.length];
-        for(int i = 0; i < players.length; i++){
-            players[i] = new Player();
-            players[i].direction = init.config.playerDirection[i];
-            players[i].color = init.config.playerColors[i];
-        }
+
 
 
     }
@@ -36,6 +31,18 @@ public class BoardModel {
         init = I;
         height = h;
         width = w;
+        if(init.config.killemall) killEmAll = true;
+        //set players
+        players = new Player[init.config.playerDirection.length];
+        for(int i = 0; i < players.length; i++){
+            players[i] = new Player();
+            players[i].direction = init.config.playerDirection[i];
+            players[i].color = init.config.playerColors[i];
+            if(killEmAll) players[i].lives = 0;
+            else players[i].lives = 1;
+        }
+
+        //set pieces
         myCells = new CellModel[width][height];
         for(int i = 0; i < width; i++){
             for(int k = 0; k < height; k++){
@@ -113,8 +120,6 @@ public class BoardModel {
     }
 
     public void changeTurns(){
-        // TODO: 7/24/17 refactor to work with new design
-
 
         if(!gameOver) {
             //piece no longer on rest after their turn is over
@@ -122,8 +127,16 @@ public class BoardModel {
                 restPiece = null;
             }
             //change turns
-            currentTurn++;
-            currentTurn %= players.length;
+            int lastTurn = currentTurn;
+            do {
+                currentTurn++;
+                currentTurn %= players.length;
+            } while (players[currentTurn].lives < 1); //loop if player is out
+
+            if(currentTurn == lastTurn){
+                //all other players out
+                gameOver = true;
+            }
         }
            /* //update GUI
             if(isBlueTurn){

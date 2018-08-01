@@ -66,7 +66,7 @@ public class RandleshackleController {
         statusText.setText("Blue");
        // gameBoard.getChildren().add(title2);
         //
-        int no = 1;
+       // int no = 1;
 
     }
 
@@ -80,7 +80,7 @@ public class RandleshackleController {
     @FXML
     void usePower(MouseEvent event) {
 
-
+        board.usePower();
 
         /*
 

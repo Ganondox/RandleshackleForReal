@@ -4,10 +4,7 @@ package Controller;
 import Controller.InitFact.InitializerFactory;
 import Misc.CellPolygon;
 import Misc.LunarBot;
-import Model.BoardModel;
-import Model.CellModel;
-import Model.Move;
-import Model.PieceModel;
+import Model.*;
 import View.BoardView;
 import View.CellView;
 import View.PieceView;
@@ -23,7 +20,7 @@ import java.util.HashSet;
 public class BoardController {
 
 
-    enum Power{ NONE, PRIME_MISSILE, CANCEL_MISSILE, DEPOWER
+    public enum Power{ NONE, PRIME_MISSILE, CANCEL_MISSILE, DEPOWER, POWER_UP
 
     }
 
@@ -119,6 +116,7 @@ public class BoardController {
         setSelectedCell(null);
        // myButton.setText("*null*");
         currentPower = Power.NONE;
+        view.draw();
     }
 
     public PieceModel getSelectedPiece(){
@@ -126,9 +124,34 @@ public class BoardController {
     }
 
     public void usePower(){
-        // TODO: 7/24/17 refactor according to new design
 
+        Move move;
+        switch (currentPower){
+            case POWER_UP:
+                move = new Move(getSelectedPiece(), null, Move.Action.POWER_UP );
+                makeMove(move);
+                break;
+            case DEPOWER:
+                move = new Move(getSelectedPiece(), null, Move.Action.DESCEND );
+                makeMove(move);
+                break;
+            case PRIME_MISSILE:
+                System.out.println("BZZT");
+                missile = true;
+                closeCells();
+                //getSelectedCell().setFill(Color.AQUA);
+                missileSearch();
+                currentPower = Power.CANCEL_MISSILE;
+                view.draw();
+                break;
+            case CANCEL_MISSILE:
+                CellController cell = myCells[selectedCell.getxCordinate()][selectedCell.getyCordinate()];
+                deselect();
+                cell.onClicked();
+                break;
+        }
             /*
+
         switch (currentPower){
 
 
@@ -171,12 +194,30 @@ public class BoardController {
         missile = false;
         openCells(piece);
 
+        //set appropriate power
+
+        if (piece instanceof EarthPonyModel || piece instanceof AlicornModel || piece instanceof PegasusModel ||
+                piece instanceof UnicornModel) {
+            if(!piece.isPowered() && (model.getRestPiece() == null || !model.getRestPiece().equals(piece))){
+                currentPower = Power.POWER_UP;
+            } else {
+                if(piece instanceof PegasusModel){
+                    currentPower = Power.DEPOWER;
+                }
+                if(piece instanceof UnicornModel || piece instanceof AlicornModel){
+                    currentPower = Power.PRIME_MISSILE;
+                }
+            }
+        }
+
+        view.draw();
+
     }
 
     void openCells(PieceModel pieceModel){
-        // TODO
-        //get cells that can be moved into or captured
+        //get cells that can be moved into or captured, and other spots
         HashSet<CellModel> opencells = pieceModel.getOpenCells();
+        HashSet<CellModel> drainCells = pieceModel.getDrainSpots();
 
         //open cells
         for(int i = 0; i < model.getWidth(); i++){
@@ -184,7 +225,10 @@ public class BoardController {
                 if(k >= model.lowerBound(i) && k <= model.upperBound(i)){
 
                     if(opencells.contains(model.getCell(i,k)))
-                    myCells[i][k].open();
+                        myCells[i][k].open();
+                    else if(drainCells.contains(model.getCell(i,k)))
+                        myCells[i][k].markDrainSpot();
+
                 }
             }
         }
@@ -197,6 +241,18 @@ public class BoardController {
         if(move.execute(model)) {
             deselect();
             view.draw();
+        }
+
+    }
+
+    void missileSearch(){
+        HashSet<CellModel> vulernableCells = getSelectedPiece().missileSearch();
+        for(int i = 0; i < model.getWidth(); i++){
+            for(int k = 0; k < model.getHeight(); k++){
+                if(k >= model.lowerBound(i) && k <= model.upperBound(i)){
+                  myCells[i][k].missileColor(vulernableCells);
+                }
+            }
         }
 
     }
