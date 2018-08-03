@@ -1,7 +1,7 @@
 package View;
 
 import Controller.CellController;
-import Misc.CellPolygon;
+import Misc.Old.CellPolygon;
 import Model.CellModel;
 import javafx.scene.paint.Color;
 

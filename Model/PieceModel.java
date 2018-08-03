@@ -118,12 +118,6 @@ public class PieceModel {
                             }
                         }
                     }
-                } else if(current.getPiece().getPlayer() != this.getPlayer()) {
-                    //adjacent enemy pieces on ground can be captured
-                    //current.setFill(Color.YELLOW);
-                    //current.isVulnerable = true;
-                    openCells.add(current);
-
                 }
 
 
@@ -191,7 +185,7 @@ public class PieceModel {
     public HashSet<CellModel> getDrainSpots() {
         HashSet<CellModel> drainCells = new HashSet<>();
         HashSet<CellModel> openCells = getOpenCells();
-        //if has magic and powered, finds where it can telport to
+        //if has magic and powered, finds where it can teleport to
         if (isMagic){
             Direction firstDirection = Direction.TOP;
             for(int i = 1; i <= 6; i++){
@@ -220,7 +214,7 @@ public class PieceModel {
                 firstDirection = firstDirection.clockwise();
                 if(current != null) {
                     //cell must contain enemy
-                    if (current.getPiece() != null && current.getPiece().player != player) {
+                    if (current.getPiece() != null && current.getPiece().player != player && !openCells.contains(current)) {
                         drainCells.add(current);
                     }
                 }
@@ -266,5 +260,13 @@ public class PieceModel {
 
     public boolean isFlying() {
         return isFlying;
+    }
+
+    public boolean isHero() {
+        return isHero;
+    }
+
+    public boolean isMagic() {
+        return isMagic;
     }
 }

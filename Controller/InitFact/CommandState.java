@@ -25,7 +25,7 @@ public class CommandState extends IFactState {
                 IF.state = new HeightState(IF);
                 break;
             case 'P':
-                if(IF.debug) System.out.println("Set Player Count");
+                if(IF.debug) System.out.println("Set PlayerModel Count");
                 //set players command
                 IF.state = new PlayersState(IF);
                 break;
@@ -38,6 +38,12 @@ public class CommandState extends IFactState {
                 if(IF.debug) System.out.println("Set Play Direction");
                 //set direction command
                 IF.state = new DirectionState(IF);
+                break;
+
+            case 'B':
+                if(IF.debug) System.out.println("Set Bot");
+                //set bot command
+                IF.state = new BotState(IF);
                 break;
 
             case '$':

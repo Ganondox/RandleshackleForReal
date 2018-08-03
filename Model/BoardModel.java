@@ -1,8 +1,6 @@
 package Model;
 
 
-import View.IView;
-
 /**
  * Created by jotbills on 7/10/17.
  */
@@ -16,32 +14,30 @@ public class BoardModel {
     private PieceModel restPiece;
     private boolean gameOver = false;
     private Initializer init;
-    private Player[] players;
+    private PlayerModel[] players;
     boolean killEmAll = false;
 
 
-    public BoardModel(Initializer init){
-        this(init.data.length, init.data[0].length, init);
+    //IView view; //necessary evil for single player
 
 
+    public BoardModel(Initializer I){
 
-    }
-
-    public BoardModel(int w, int h, Initializer I){
         init = I;
-        height = h;
-        width = w;
+
+        height = init.data.length;
+        width = init.data[0].length;
         if(init.config.killemall) killEmAll = true;
         //set players
-        players = new Player[init.config.playerDirection.length];
+        players = new PlayerModel[init.config.playerDirection.length];
         for(int i = 0; i < players.length; i++){
-            players[i] = new Player();
+            players[i] = new PlayerModel();
             players[i].direction = init.config.playerDirection[i];
             players[i].color = init.config.playerColors[i];
+           // players[i].AI = init.AIs[i];
             if(killEmAll) players[i].lives = 0;
             else players[i].lives = 1;
         }
-
         //set pieces
         myCells = new CellModel[width][height];
         for(int i = 0; i < width; i++){
@@ -119,7 +115,7 @@ public class BoardModel {
         this.restPiece = restPiece;
     }
 
-    public void changeTurns(){
+     void changeTurns(){
 
         if(!gameOver) {
             //piece no longer on rest after their turn is over
@@ -135,7 +131,7 @@ public class BoardModel {
 
             if(currentTurn == lastTurn){
                 //all other players out
-                gameOver = true;
+                endGame();
             }
         }
            /* //update GUI
@@ -182,7 +178,18 @@ public class BoardModel {
     }
 
 
-    public Player getPlayer(int i){
+    public PlayerModel getPlayer(int i){
         return players[i];
     }
+
+
+    public PlayerModel getCurrentPlayer(){
+        return getPlayer(currentTurn);
+    }
+
+    public  int getPlayers(){
+        return players.length;
+    }
+
+
 }

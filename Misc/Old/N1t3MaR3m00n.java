@@ -1,5 +1,6 @@
-package Misc;
+package Misc.Old;
 
+import Misc.Old.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ import java.util.LinkedList;
  * Time: 12:44 PM
  * To change this template use File | Settings | File Templates.
  */
-public class N1t3MaR3m00n extends LunarBot{
+public class N1t3MaR3m00n extends LunarBot {
 
     //quite buggy, know it doesn't calculate safety for flying pieces when landing correctly
 

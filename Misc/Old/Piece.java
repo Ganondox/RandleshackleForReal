@@ -1,5 +1,7 @@
-package Misc;
+package Misc.Old;
 
+import Misc.Old.Board;
+import Misc.Old.Cell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

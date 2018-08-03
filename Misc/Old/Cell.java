@@ -1,4 +1,4 @@
-package Misc;
+package Misc.Old;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

@@ -1,4 +1,4 @@
-package Misc;
+package Misc.Old;
 
 import Model.BoardModel;
 import Controller.BoardController;

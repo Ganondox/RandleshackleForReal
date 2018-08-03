@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by jotbills on 7/10/17.
  */
-public class BoardView  implements IView {
+public class BoardView implements IView {
 
     BoardController controller;
     BoardModel model;
@@ -56,13 +56,22 @@ public class BoardView  implements IView {
 
         //title
         if(!model.isGameOver()) {
-            switch (model.getPlayer(model.getTurn()).getColor()) {
-                case BLUE:
-                    myText.setText("Blue");
-                    break;
-                case WHITE:
-                    myText.setText("White");
-                    break;
+            if(!controller.isAIthinking()) {
+                if(controller.getCurrentPlayer().getName() == null) {
+
+                    switch (model.getPlayer(model.getTurn()).getColor()) {
+                        case BLUE:
+                            myText.setText("Blue");
+                            break;
+                        case WHITE:
+                            myText.setText("White");
+                            break;
+                    }
+                } else {
+                    myText.setText( controller.getCurrentPlayer().getName());
+                }
+            } else {
+                myText.setText( controller.getCurrentPlayer().getName() + " is thinking...");
             }
         } else {
             switch (model.getPlayer(model.getTurn()).getColor()) {

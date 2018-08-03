@@ -13,7 +13,7 @@ public class Move {
         this.type = type;
     }
 
-    public enum Action{ MOVE, CAPTURE, MISSILE, TELEPORT, POWER_UP, DESCEND, SWOOP
+    public enum Action{ MOVE, CAPTURE, MISSILE, TELEPORT, POWER_UP, DESCEND, SWOOP, FORFEIT
 
     }
 
@@ -85,8 +85,9 @@ public class Move {
                         destination.getPiece().die();
                     }
                     break;
-
-
+                case FORFEIT:
+                    successful = true;
+                    board.getPlayer(piece.getPlayer()).forfeit();
             }
         }
 

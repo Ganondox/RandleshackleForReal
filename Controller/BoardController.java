@@ -1,9 +1,10 @@
 package Controller;
 
 
+import AI.Dispatcher;
 import Controller.InitFact.InitializerFactory;
-import Misc.CellPolygon;
-import Misc.LunarBot;
+import Misc.Old.CellPolygon;
+import AI.Bot;
 import Model.*;
 import View.BoardView;
 import View.CellView;
@@ -36,15 +37,37 @@ public class BoardController {
 
 
     //AI control
-    private Boolean isSinglePlayer = true;
-    private LunarBot bot;
+    PlayerController[] players;
+    boolean AIthinking = false;
+
 
 
     public BoardController(AnchorPane myPane, Label stattext, Button powerButton, Boolean soloMode){
 
         InitializerFactory factory = new InitializerFactory();
-        model = new BoardModel(factory.create("res/standard.txt"));
+
+        String game;
+        if(soloMode){
+            game = "res/solo.txt";
+        } else {
+            game = "res/standard.txt";
+        }
+
+        Initializer init = factory.create(game);
+
+
+
+        model = new BoardModel(init);
         view = new BoardView(myPane, stattext, powerButton, this, model);
+
+        //create player controllers
+        players = new PlayerController[model.getPlayers()];
+        for(int i = 0; i < players.length; i++){
+            players[i] = new PlayerController(null, init.getBot(i), model.getPlayer(i));
+        }
+
+
+        //model.setView(view);
         //model = view.getModel();
 
 
@@ -75,11 +98,16 @@ public class BoardController {
         }
 
 
-        isSinglePlayer = soloMode;
+        //start the game
+        play();
+
+
+       /* isSinglePlayer = soloMode;
         if(isSinglePlayer){
             bot = new N1t3MaR3m00n2(this);
             bot.makeMove();
         }
+        */
 
     }
 
@@ -238,11 +266,26 @@ public class BoardController {
 
     public void makeMove(Move move){
 
-        if(move.execute(model)) {
+
+        if(move != null && !AIthinking && move.execute(model) ) {
             deselect();
             view.draw();
+            if(!model.isGameOver()) {
+                play();
+            }
         }
 
+    }
+
+
+   public void makeMove(int source, Move move){
+       if(move != null  && source == model.getTurn() && move.execute(model)) {
+           deselect();
+           view.draw();
+           if(!model.isGameOver()) {
+               play();
+           }
+       }
     }
 
     void missileSearch(){
@@ -255,5 +298,29 @@ public class BoardController {
             }
         }
 
+    }
+
+    void play(){
+        //play AI
+        if(players[model.getTurn()].AI != null) {
+            AIthinking = true;
+            view.draw();
+            Dispatcher dispatcher = new Dispatcher(this , this.model, players[model.getTurn()].AI, model.getTurn() );
+            new Thread(dispatcher.getTask()).start();
+
+        }
+    }
+
+    public boolean isAIthinking() {
+        return AIthinking;
+    }
+
+
+    public void stopThinking(int number){
+        if(number == model.getTurn()) AIthinking = false;
+    }
+
+    public PlayerController getCurrentPlayer(){
+        return players[model.getTurn()];
     }
 }

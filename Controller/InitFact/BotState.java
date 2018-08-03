@@ -1,20 +1,25 @@
 package Controller.InitFact;
 
-import AI.Bot;
-import Controller.IBoardController;
+
+import AI.N1t3MaR3m00n2;
+import Misc.Old.LunarBot;
 import Model.CellModel;
-import View.Color;
 
 /**
- * Created by jotbills on 8/2/17.
+ * Created by jotbills on 7/20/18.
  */
-public class PlayersState extends IFactState {
+public class BotState extends IFactState {
 
     IFactSubState substate = null;
     Object parameter;
     boolean setValue;
+    int player = -1;
 
-    public PlayersState(InitializerFactory IF) {
+    String bot;
+
+    boolean buildingString = false;
+
+    public BotState (InitializerFactory IF) {
         super(IF);
     }
 
@@ -23,25 +28,41 @@ public class PlayersState extends IFactState {
         if(substate == null) {
             switch (character) {
                 case '<':
-                    if(setValue){
-                        //set player
-                        IF.players = (Integer) parameter;
+                    //process string
+
+                    if(bot.equals("N")){
+                        IF.AIs[player] = new N1t3MaR3m00n2();
+                    } else {
+                        IF.failed = true;
+                        IF.message = "Unknown Bot";
                     }
 
-                    //initialize data
-                    IF.playerDirection = new CellModel.Direction[IF.players];
-                    IF.specialControl = new IBoardController[IF.players];
-                    IF.colors = new Color[IF.players];
-                    IF.AIs = new Bot[IF.players];
 
                     //end command
                     IF.state = new CommentState(IF);
                     break;
                 case '=':
+                    if(setValue){
+                        player = (Integer) parameter;
+                    }
+                    break;
+                case '-':
                     substate = new NumberState(IF, this);
                     setValue = true;
                     break;
                 case ' ':
+                    break;
+                case '\'':
+                    if (!buildingString) {
+                        //start string
+                        buildingString = true;
+                        substate = new StringState(IF, this);
+                    } else {
+                        //end string
+                        buildingString = false;
+                         bot = (String) parameter;
+
+                    }
                     break;
                 default:
                     IF.message = "Syntax Error";

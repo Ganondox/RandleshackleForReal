@@ -1,7 +1,7 @@
 package Controller.InitFact;
 
 import Controller.IBoardController;
-import Misc.LunarBot;
+import AI.Bot;
 import Model.CellModel.Direction;
 import Model.Config;
 import Model.Initializer;
@@ -16,7 +16,7 @@ import java.io.FileReader;
 public class InitializerFactory implements IFact{
 
     PieceMock[][] data = null;
-    LunarBot[] AIs = null;
+    Bot[] AIs = null;
     Config configuration = null;
 
     IBoardController[] specialControl = null;
